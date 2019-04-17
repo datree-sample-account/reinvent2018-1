@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+language: node_js
+services: docker
+node_js: '10'
+before_install:
+  - pyenv shell 3.6.3
+  - pip install --user awscli
+install:
+  - npm install
+  - npm test
+script:
+  - aws s3 cp s3://datree-infra/cicd/deploy.sh .
+  - bash deploy.sh
